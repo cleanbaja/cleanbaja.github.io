@@ -1,5 +1,3 @@
-Here you can say lots of fun things about your site.
+Hello, I am Yusuf M (aka cleanbaja), and I am a hobby operating system developer and low-level programming enthusiast.
+I post things that I find intresting here, in hopes that someone might find it useful one day!
 
-Maybe say a some things about yourself.
-
-Or maybe what you plan to blog about.
