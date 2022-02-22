@@ -1,9 +1,9 @@
-## A greater look at Locking
+## A Greater look at Locking
 
 Have you always wondered how multicore systems share the same resources, without causing data-races or corrupted memory?
 The answer lays in two key structures, called the mutex and the semaphore, whose purpose is to hold/stall a resource,
 until the CPU who is currently using it is done. This practice of making CPUs wait until a resource is available
-is called Locking, and together, we'll take a deeper look into how it really works.
+is called locking, and together, we'll take a deeper look into how it really works.
 
 ---
 
@@ -13,7 +13,7 @@ A Mutex (short for mutually exclusive) is a type of lock, which at the core, has
 at hand. Mutexes are most commonly used to protect a resource, such as a area of memory. Only one thread can hold a mutex at once, 
 while the other threads are put to sleep, until it becomes available. Then they are awakened by the operating system.
 
-Example python implementation
+Example python implementation...
 ```python
 import threading, time, random
  
@@ -50,9 +50,9 @@ thread_two has now finished
 ```
 
 As you can see, mutexes are relativly useful for synchronzining threads. Although we still have to take a look at how mutexes 
-are implemented in the linux kernel. For starters, linux's mutex code is located in [include/linux/mutex.h](https://github.com/torvalds/linux/include/linux/mutex.h).
-The header contains many functions and structures, but only three structures/functions are relevant to us. These are `struct mutex`, 
-`mutex_lock()` and `mutex_unlock()`. Their declarations are as follows.
+are implemented in the linux kernel. For starters, linux's mutex code is located in [include/linux/mutex.h](https://github.com/torvalds/linux/tree/master/include/linux/mutex.h).
+The header contains many functions and structures, but only three pieces of code are relevant to us. These are `struct mutex`, 
+`mutex_lock()` and `mutex_unlock()`. Their declarations are as follows...
 
 ```c
 struct mutex {
@@ -67,12 +67,18 @@ extern void mutex_unlock(struct mutex* lock);
 
 The structure of a mutex is actually relativly simple, since its only a list of threads that are waiting on the mutex, along with the spinlock 
 which the active threads spin on. Next, there is a atomic integer `owner`, which has the purpose of making sure that only the owner can
-unlock the mutex. Finally, the two functions `mutex_lock()` and `mutex_unlock()` use the assembly instruction `cmpxchg` on x86, to speed up
-the acquiring of the lock.
+unlock the mutex. Finally, the two functions `mutex_lock()` and `mutex_unlock()` use the assembly instruction `cmpxchg` on `x86_64`, which will be
+covered more later.
 
 ---
 
 ### Semaphore
+
+TODO
+
+---
+
+### In Kernel
 
 TODO
 
